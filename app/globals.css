@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default Theme (Solution Mode / Light - Warm Beige) */
+    --bg-primary: #FFF9F0;       /* 溫暖米白 */
+    --bg-secondary: #F7F2EA;     /* 淺燕麥色 */
+    --text-primary: #3D3431;     /* 深暖灰 */
+    --text-secondary: #5D5451;   /* 中暖灰 */
+    --text-muted: #8E8682;       /* 淺暖灰 */
+    
+    --brand-primary: #E07A5F;    /* 陶土橘 (溫暖主色) */
+    --brand-on-primary: #FFFFFF;
+    --brand-container: #FCEDE8;  /* 極淺橘 (背景用) */
+    --brand-on-container: #542216;
+    
+    --surface-container: #FFFFFF; /* 純白卡片，在米色背景上更乾淨 */
+    --surface-container-high: #F7F2EA;
+    
+    --outline: #8E8682;
+    --outline-variant: #D7CFC8;
+    
+    --state-success: #6A994E;    /* 柔和綠 */
+    --state-warning: #E9C46A;    /* 柔和黃 */
+    --state-error: #D66D5E;      /* 柔和紅 */
+  }
+
+  /* Anxiety Mode (Dark - Warm Brown/Grey) */
+  .theme-anxiety {
+    --bg-primary: #262422;       /* 深暖褐黑 */
+    --bg-secondary: #33302D;
+    --text-primary: #EAE0D5;     /* 淺米色文字 */
+    --text-secondary: #C6Bcb6;
+    --text-muted: #8F8884;
+    
+    --brand-primary: #F2B5A5;    /* 粉膚橘 (在深色上柔和發光) */
+    --brand-on-primary: #4A2016;
+    --brand-container: #663328;
+    --brand-on-container: #FFDBCF;
+    
+    --surface-container: #33302D;
+    --surface-container-high: #423E3A;
+    
+    --outline: #9E9692;
+    --outline-variant: #4D4845;
+  }
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Roboto Flex', 'Google Sans', sans-serif;
+  transition: background-color 1000ms ease-in-out, color 1000ms ease-in-out;
+}
