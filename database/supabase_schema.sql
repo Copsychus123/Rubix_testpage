@@ -1,18 +1,21 @@
--- Create leads table
-create table public.leads (
-  id uuid default gen_random_uuid() primary key,
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
   email text not null,
-  name text,
-  fears text[] default '{}',
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+  fears text[] not null default '{}',
+  created_at timestamptz not null default now()
 );
 
--- Enable RLS
 alter table public.leads enable row level security;
 
--- Policy for inserting leads (public access)
-create policy "Allow public insert to leads"
-on public.leads
-for insert
-to anon
-with check (true);
+drop policy if exists "Allow public insert to leads" on public.leads;
+drop policy if exists "Enable insert for all users" on public.leads;
+drop policy if exists "Enable read for service role only" on public.leads;
+
+create policy "Enable insert for all users" on public.leads
+  for insert
+  with check (true);
+
+create policy "Enable read for service role only" on public.leads
+  for select
+  using (auth.role() = 'service_role');

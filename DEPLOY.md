@@ -4,7 +4,7 @@
 
 1.  Go to [Supabase Dashboard](https://supabase.com/dashboard) and create a new project.
 2.  Go to the **SQL Editor** in the left sidebar.
-3.  Copy the content of `database/early_birds.sql` and run it to create the table and policies.
+3.  Copy the content of `database/supabase_schema.sql` and run it to create the `leads` table and RLS policies.
 4.  Go to **Project Settings** -> **API**.
 5.  Copy the `Project URL` and `anon public` key.
 

@@ -28,8 +28,7 @@ Core Validation
   - 設計關鍵：視覺與文案營造溫暖、專業、可信賴；避免冰冷的資料羅列。
 - C. 轉化預約區（表單）
   - 文案：此服務預計 [月份] 上線，早鳥價每月 [金額]。立即預留名額。
-  - Supabase 表單欄位：姓名、信箱、單選「最想了解長輩哪方面狀況？」
-    - 選項：情緒變化 / 日常生活主題 / 安全與健康提醒
+  - Supabase 表單欄位：姓名、信箱、關注面向（多選）
   - 提交提示：加入早鳥名單，贈《長輩溝通建議指南》。
 
 ---
@@ -39,7 +38,7 @@ Core Validation
 - 樣式：嚴格遵循 Material 3 設計令牌（色彩、圓角、字體）
 - 互動：React 狀態控制 Demo 展開/收起；圖表使用 Recharts 渲染靜態資料
 - 資料：所有 Demo 資料皆為前端 .ts 物件，無後端 API
-- 資料庫：Supabase 僅一張表 early_birds 用於表單儲存
+- 資料庫：Supabase 僅一張表 leads 用於表單儲存
 - 部署：Vercel，一鍵 Git 部署
 
 Environment Variables
@@ -51,7 +50,7 @@ Environment Variables
 ## 交付物 Deliverables
 - 單一 page.tsx：包含整頁結構、互動邏輯與靜態資料
 - 樣式配置：tailwind.config.js 與全域 CSS，完整映射 Material 3 設計令牌
-- 資料庫腳本：建立 early_birds 資料表的 SQL
+- 資料庫腳本：建立 leads 資料表的 SQL
 - 部署說明：Vercel 連線與 Supabase 環境變數設定步驟
 
 ---
@@ -59,11 +58,11 @@ Environment Variables
 ## 建表 SQL Schema
 
 ```sql
-create table if not exists public.early_birds (
+create table if not exists public.leads (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
-  interest text not null check (interest in ('情緒變化','日常生活主題','安全與健康提醒')),
+  fears text[] not null default '{}',
   created_at timestamptz not null default now()
 );
 ```
@@ -86,7 +85,7 @@ create table if not exists public.early_birds (
 - 檔案：單一 app/page.tsx 實作 A/B/C 三區塊與互動
 - 樣式：以 Tailwind 映射 Material 3 Token（色彩、字級、圓角、陰影）
 - 圖表：以 Recharts 呈現靜態情緒曲線資料
-- 表單：以 Supabase JS 客戶端直接寫入 early_birds
+- 表單：以 Supabase JS 客戶端直接寫入 leads
 - 無後端：所有資料邏輯在前端完成
 
 ---
@@ -95,6 +94,5 @@ create table if not exists public.early_birds (
 - Goal: Ship a one‑page pre‑sale landing in 3–5 days to validate business and product hypotheses.
 - Value: “A cup of coffee per day for peace of mind about your loved ones.”
 - Page: Above‑the‑fold value; interactive demo showing daily emotion curve, warm findings, and caring suggestions; conversion form connected to Supabase.
-- Tech: Next.js App Router, TypeScript, Tailwind CSS, Recharts, Supabase (early_birds table), deploy on Vercel.
+- Tech: Next.js App Router, TypeScript, Tailwind CSS, Recharts, Supabase (leads table), deploy on Vercel.
 - Deliverables: Single page.tsx; Tailwind config + global CSS with Material 3 tokens; SQL schema; deployment steps.
-
